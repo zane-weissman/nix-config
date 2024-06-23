@@ -1,0 +1,18 @@
+flake.nix # for each device, include device/<name>
+home.nix # empty this out in favor of device/module config
+devices/
+  clara/
+    default.nix # imports supplementary local configs and modules
+    fonts.nix   # these files contain configs for the modules
+    ...
+  lydia/
+  ...
+modules/
+  core/
+    default.nix # implements a module with necessary options 
+    fish/       # available to the device/<name>/ modules
+    ...
+  x11/
+  music/
+  server/
+  ...

@@ -1,0 +1,5 @@
+device
+**/*.sw?
+**/__pycache__
+nvim/lazy-lock.json
+nvim/lazyvim.json
