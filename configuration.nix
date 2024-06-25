@@ -119,6 +119,7 @@
     enable = true;
     enableSSHSupport = true;
   };
+  programs.fish.enable = true;
 
   
 
