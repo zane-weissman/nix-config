@@ -28,7 +28,7 @@ in
       let
         inherit (myFuncs) src;
       in
-      src [
+      src ./. [
         "qtile"
       ];
       # no longer writing to .config/fontconfig/fonts.conf

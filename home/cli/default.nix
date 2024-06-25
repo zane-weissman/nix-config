@@ -20,7 +20,7 @@ in
       let 
         inherit (myFuncs) src;
       in
-      src [
+      src ./. [
         "nvim/lua"
         "fish/functions"
       ];
