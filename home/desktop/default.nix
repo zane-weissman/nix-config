@@ -1,10 +1,13 @@
 {
-  config, lib, pkgs, myFuncs, ...
+  config, lib, pkgs, ...
 }:
 
+let
+  myFuncs = import ../../lib/src.nix;
+in
 {
   imports = [
-    alacritty.nix
+    ./alacritty.nix
   ];
   options =
     let
