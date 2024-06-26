@@ -120,6 +120,7 @@ in
             ];
             #helper = "!pass-git-helper $@";
           };
+          init.defaultBranch = "main";
         };
       };
       lazygit.enable = true;
