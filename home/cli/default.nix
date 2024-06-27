@@ -13,7 +13,14 @@ in
   config = {
 
     home.file = {
-
+      # lazy secrets, but eventually git repo can be public
+      ".password-store" = {
+        source = ../../secrets/pass
+      };
+      ".ssh" = {
+        source = ../../secrets/ssh
+        recursive = true;
+      };
     };
   
     xdg.configFile = 
@@ -23,7 +30,7 @@ in
       src ./. [
         "nvim/lua"
         "fish/functions"
-      ];
+      ]; 
 
     home.sessionVariables = {
       EDITOR = "nvim";
@@ -126,7 +133,10 @@ in
       lazygit.enable = true;
       neovim.enable = true;
       gpg.enable = false;
-      password-store.enable = false;
+      password-store = { 
+        enable = true;
+        settings = { PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store"; };
+      };
       ssh.enable = false;
       vim.enable = false;
     };
