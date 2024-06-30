@@ -1,43 +1,44 @@
 {
-  config, lib, pkgs, ...
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 let
   myFuncs = import ../../lib/src.nix;
 in
 {
-  imports = [
-    ./nvim.nix
-  ];
+  imports = [ ./nvim.nix ];
 
   config = {
 
     home.file = {
       # lazy secrets, but eventually git repo can be public
       ".password-store" = {
-        source = ../../secrets/pass
+        source = ../../secrets/pass;
       };
       ".ssh" = {
-        source = ../../secrets/ssh
+        source = ../../secrets/ssh;
         recursive = true;
       };
     };
-  
-    xdg.configFile = 
-      let 
+
+    xdg.configFile =
+      let
         inherit (myFuncs) src;
       in
       src ./. [
         "nvim/lua"
         "fish/functions"
-      ]; 
+      ];
 
     home.sessionVariables = {
       EDITOR = "nvim";
       XDG_CONFIG_HOME = "/home/zane/.config/";
 
       SSHFS_OPTS = "auto_cache,reconnect,no_readahead";
-      SSHFS_CIPHERS = "aes128-ctr"; #,aes128-gcm@openssh.com,aes128-cbc'
+      SSHFS_CIPHERS = "aes128-ctr"; # ,aes128-gcm@openssh.com,aes128-cbc'
       PATH = builtins.concatStringsSep ":" [
         "$PATH"
         "/home/zane/.cargo/bin"
@@ -83,7 +84,7 @@ in
             nvsbs = withCursor "nvim scp://zane@sunar/Leapfrog/%";
             vskem = withCursor "vim scp://kemal-ddr4@kemal/Desktop/memory_mayhem_kristi/%";
             sfsbs = withCursor ''
-            SUNAR="autoreg-203842.dyn.wpi.edu" sshfs zane@$SUNAR:/home/zane/ ~/mnt/berksunar -o$SSHFS_OPTS,Ciphers=$SSHFS_CIPHERS; cd ~/mnt/berksunar/%
+              SUNAR="autoreg-203842.dyn.wpi.edu" sshfs zane@$SUNAR:/home/zane/ ~/mnt/berksunar -o$SSHFS_OPTS,Ciphers=$SSHFS_CIPHERS; cd ~/mnt/berksunar/%
             '';
             gca = withCursor "git commit -am \"%\"";
             gcm = withCursor "git commit -m \"%\"";
@@ -133,9 +134,11 @@ in
       lazygit.enable = true;
       neovim.enable = true;
       gpg.enable = false;
-      password-store = { 
+      password-store = {
         enable = true;
-        settings = { PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store"; };
+        settings = {
+          PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+        };
       };
       ssh.enable = false;
       vim.enable = false;
