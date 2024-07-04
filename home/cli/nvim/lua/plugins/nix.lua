@@ -39,4 +39,19 @@ return {
     "calops/hmts.nvim",
     ft = "nix",
   },
+
+  {
+    "nvimdev/dashboard-nvim",
+    event = "VimEnter",
+    opts = function(_, opts_)
+      opts_.config.center[5] = nil
+      opts_.config.center[5] = {
+        action = 'lua LazyVim.pick("files", { cwd = "~/nix-config/home/cli/nvim/"}) ()',
+        desc = " Config" .. string.rep(" ", 43 - 7),
+        icon = " ",
+        key = "c",
+        key_format = "  %s",
+      }
+    end,
+  },
 }
