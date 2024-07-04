@@ -16,10 +16,10 @@ in
     home.file = {
       # lazy secrets, but eventually git repo can be public
       ".password-store" = {
-        source = ../../secrets/pass;
+        source = ~/nix-config/secrets/pass;
       };
       ".ssh" = {
-        source = ../../secrets/ssh;
+        source = ~/nix-config/secrets/ssh;
         recursive = true;
       };
     };
