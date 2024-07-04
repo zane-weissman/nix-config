@@ -22,6 +22,7 @@
     # Let Home Manager install and manage itself.
     programs.home-manager = {
       enable = true;
+      path = lib.mkForce "${config.home.homeDirectory}/nix-config";
       #backupFileExtension = "backup";
     };
 
