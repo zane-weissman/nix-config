@@ -1,0 +1,65 @@
+#!/usr/bin/perl
+#
+# Copyright 2014 Pierre Mavro <deimos@deimos.fr>
+# Copyright 2014 Vivien Didelot <vivien@didelot.org>
+# Copyright 2014 Andreas Guldstrand <andreas.guldstrand@gmail.com>
+#
+# Licensed under the terms of the GNU GPL v3, or any later version.
+
+use strict;
+use warnings;
+use utf8;
+use Getopt::Long;
+use List::Util qw(max sum);
+
+# default values
+my $t_warn = 2.80;
+my $t_crit = 3.50;
+my $freq = -1;
+my $mode="avg";
+
+sub help {
+    print "Usage: cpu_usage [-w <warning>] [-c <critical>]\n";
+    print "-w <percent>: warning threshold to become yellow\n";
+    print "-c <percent>: critical threshold to become red\n";
+    exit 0;
+}
+
+GetOptions("help|h" => \&help,
+           "w=i"    => \$t_warn,
+           "c=i"    => \$t_crit,
+           "mode=s" => \$mode);
+
+# Get CPU freq
+if ($mode eq "avg") {
+  my @meas;
+  my $sum;
+  @meas = `cpufreq-info | grep 'current CPU frequency' | grep -o -E '[[:digit:]]\.[[:digit:]][[:digit:]]'`;
+  $sum = sum(@meas);
+  $freq = $sum / scalar @meas;
+}elsif ($mode eq "max"){
+  my @meas = `cpufreq-info | grep 'current CPU frequency' | grep -o -E '[[:digit:]]\.[[:digit:]][[:digit:]]'`;
+  $freq = max(@meas);
+}else{
+  cpu $freq = `cpupower frequency-info | grep "current CPU frequency" | grep -o -E '[[:digit:]]\.[[:digit:]][[:digit:]]'`;
+}
+
+
+if ($freq == 1) { 
+  printf "ERR\n";
+  exit 1;
+}
+
+# Print short_text, full_text
+printf "%02.1fGHz\n", $freq;
+printf "%02.1fGHz\n", $freq;
+
+# Print color, if needed
+if ($freq >= $t_crit) {
+    print "#FF0000\n";
+    exit 33;
+} elsif ($freq >= $t_warn) {
+    print "#FFFC00\n";
+}
+
+exit 0;

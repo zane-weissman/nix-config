@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+echo <span background="#458588" foreground="ebdb22">
+date '+%Y-%m-%d %H:%M'
+echo </span>

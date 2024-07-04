@@ -1,0 +1,35 @@
+{
+    "classes": {
+        "Firefox": "web",
+        "qutebrowser": "web",
+
+        "gnome-terminal": "term",
+        "urxvt": "term",
+        "URxvt": "term",
+        "Alacritty": "term",
+
+        "evince": "pdf",
+        "Evince": "pdf",
+        "mupdf": "pdf",
+        "okular": "pdf",
+
+        "Nemo": "files",
+        "nemo": "files",
+
+        "libreoffice-writer": "writer",
+        "libreoffice-calc": "calc",
+        "chromium-browser": "chrome",
+        "st-256color": "term",
+        "matlab r2019a - academic use": "matlab",
+        "astroid": "mail",
+        "Astroid": "mail",
+        "Mailspring": "mail",
+        "matlab r2021b": "matlab",
+        "sun-awt-X11-XFramePeer": "matlab"
+
+    },
+    "instances": {
+        "matlab r2021b - academic use": "matlab",
+        "sun-awt-X11-XFramePeer": "matlab"
+    }
+}
