@@ -25,6 +25,7 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
             ./home
+            ./home/desktop/i3
             {
               # extra nix config goes here
               home = {
