@@ -13,16 +13,19 @@ in
 
   config = {
 
-    home.file = {
-      # lazy secrets, but eventually git repo can be public
-      ".password-store" = {
-        source = ~/nix-config/secrets/pass;
+    /*
+      TODO: use agenix or something
+      home.file = {
+        # lazy secrets, but eventually git repo can be public
+        ".password-store" = {
+          source = ../secrets/pass;
+        };
+        ".ssh" = {
+          source = ../secrets/ssh;
+          recursive = true;
+        };
       };
-      ".ssh" = {
-        source = ~/nix-config/secrets/ssh;
-        recursive = true;
-      };
-    };
+    */
 
     xdg.configFile =
       let
