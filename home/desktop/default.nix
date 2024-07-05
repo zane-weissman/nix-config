@@ -1,14 +1,15 @@
 {
-  config, lib, pkgs, ...
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 let
   myFuncs = import ../../lib/src.nix;
 in
 {
-  imports = [
-    ./alacritty.nix
-  ];
+  imports = [ ./alacritty.nix ];
   options =
     let
       inherit (lib) mkOption types;
@@ -23,15 +24,13 @@ in
     home.file = {
       ".local/share/fonts".source = ./fontconfig/fonts;
     };
-    
-    xdg.configFile = 
+
+    xdg.configFile =
       let
         inherit (myFuncs) src;
       in
-      src ./. [
-        "qtile"
-      ];
-      # no longer writing to .config/fontconfig/fonts.conf
+      src ./. [ "qtile" ];
+    # no longer writing to .config/fontconfig/fonts.conf
     #  {
     #    "fontconfig/fonts.conf".text = ''
     #      <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
@@ -42,6 +41,9 @@ in
     #      </fontconfig>
     #    '';
     #  }
+
+    # default font family
+    font.family = "ComicMono Nerd Font";
 
     home.sessionVariables = {
       MOZ_USE_XINPUT2 = "1";
@@ -55,6 +57,5 @@ in
         #settings = import ./alacritty.nix;
       };
     };
-
   };
 }

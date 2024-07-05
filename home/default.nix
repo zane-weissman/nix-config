@@ -16,6 +16,11 @@
   config = {
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
+    home = {
+      username = "zane";
+      homeDirectory = "/home/zane";
+      stateVersion = "23.11"; # Please read the comment before changing.
+    };
 
     targets.genericLinux.enable = true;
 
