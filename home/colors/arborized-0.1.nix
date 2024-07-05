@@ -1,38 +1,40 @@
 {
-  # special
-  foreground =  "#adbcad";
-  background =  "#0a3722";
-  cursorColor = "#adbcad";
-  
-  ! black
-  color0 =      "#18593f";
-  color8 =      "#416f36";
-  
-  ! red
-  color1 =      "#fa5750";
-  color9 =      "#ff665c";
-  
-  ! green
-  color2 =      "#51972e";
-  color10 =     "#84c747";
-  
-  ! yellow
-  color3 =      "#db9e2d";
-  color11 =     "#ebc13d";
-  
-  ! blue
-  color4 =      "#3184ac";
-  color12 =     "#58a3ff";
-  
-  ! magenta
-  color5 =      "#e775f2";
-  color13 =     "#ff84cd";
-  
-  ! cyan
-  color6 =      "#3cb4b8";
-  color14 =     "#53d6c7";
-  
-  ! white
-  color7 =      "#72898f";
-  color15 =     "#cad8d9";
+  palette = {
+    # special
+    #foreground = "#adbcad";
+    #background = "#0a3722";
+    #cursorColor = "#adbcad";
+
+    # black
+    base00 = "#0a3722";
+    base08 = "#416f36";
+
+    # red
+    base01 = "#fa5750";
+    base09 = "#ff665c";
+
+    # green
+    base02 = "#51972e";
+    base0A = "#84c747";
+
+    # yellow
+    base03 = "#db9e2d";
+    base0B = "#ebc13d";
+
+    # blue
+    base04 = "#3184ac";
+    base0C = "#58a3ff";
+
+    # magenta
+    base05 = "#e775f2";
+    base0D = "#ff84cd";
+
+    # cyan
+    base06 = "#3cb4b8";
+    base0E = "#53d6c7";
+
+    # white
+    base07 = "#adbcad";
+    base0F = "#cad8d9";
+  };
 }

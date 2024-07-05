@@ -202,7 +202,7 @@
       #draw_bold_text_with_bright_colors: false
 
       # colors
-      import = [ "${config.programs.home-manager.path}/home/colors/mx-comfort/alacritty.toml" ];
+      #import = [ "${config.programs.home-manager.path}/home/colors/mx-comfort/alacritty.toml" ];
 
       # Bell
       #

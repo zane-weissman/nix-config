@@ -24,23 +24,30 @@
 
       homeConfigurations =
         let
-          standardHome = { };
+          withColors = {
+            extraSpecialArgs = {
+              inherit nix-colors;
+            };
+          };
         in
         {
-          "zane@lydia" = home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            modules = [
-              ./home
-              ./home/desktop/i3
-              {
-                font.size = {
-                  small = 10.5;
-                  normal = 13.5;
-                  big = 16.5;
-                };
-              }
-            ];
-          };
+          "zane@lydia" = home-manager.lib.homeManagerConfiguration (
+            withColors
+            // {
+              pkgs = nixpkgs.legacyPackages.x86_64-linux;
+              modules = [
+                ./home
+                ./home/desktop/i3
+                {
+                  font.size = {
+                    small = 10.5;
+                    normal = 13.5;
+                    big = 16.5;
+                  };
+                }
+              ];
+            }
+          );
           "zane@adelaide" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [

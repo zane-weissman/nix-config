@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  nix-colors,
   ...
 }:
 
@@ -11,6 +12,7 @@
   imports = [
     ./cli
     ./desktop
+    ./colors
   ];
 
   config = {
