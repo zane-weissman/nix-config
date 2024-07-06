@@ -48,7 +48,9 @@
               ];
             }
           );
-          "zane@adelaide" = home-manager.lib.homeManagerConfiguration {
+          "zane@adelaide" = home-manager.lib.homeManagerConfiguration 
+            (withColors 
+            // {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [
               ./home
@@ -60,8 +62,10 @@
                 };
               }
             ];
-          };
-          "zane@clara" = home-manager.lib.homeManagerConfiguration {
+          });
+          "zane@clara" = home-manager.lib.homeManagerConfiguration 
+            (withColors 
+            // {
             pkgs = nixpkgs.legacyPackages.aarch64-linux;
             modules = [
               #./device/clara/
@@ -74,7 +78,7 @@
                 };
               }
             ];
-          };
+          });
         };
     };
 }
