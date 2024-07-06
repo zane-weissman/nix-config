@@ -5,7 +5,9 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [ 
+      (modulesPath + "/installer/scan/not-detected.nix")
+      ../amdgpu.nix
     ];
 
   boot.kernelParams = [ "boot.shell_on_fail" ];
