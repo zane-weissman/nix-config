@@ -19,7 +19,12 @@
     {
       nixosConfigurations."adelaide" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ ./nixos ];
+        modules = [
+          ./nixos
+          ./nixos/desktop
+          ./nixos/desktop/gaming.nix
+          ./nixos/desktop/plasma6.nix
+        ];
       };
 
       homeConfigurations =
@@ -48,37 +53,39 @@
               ];
             }
           );
-          "zane@adelaide" = home-manager.lib.homeManagerConfiguration 
-            (withColors 
+          "zane@adelaide" = home-manager.lib.homeManagerConfiguration (
+            withColors
             // {
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            modules = [
-              ./home
-              {
-                font.size = {
-                  small = 10;
-                  normal = 12;
-                  big = 14;
-                };
-              }
-            ];
-          });
-          "zane@clara" = home-manager.lib.homeManagerConfiguration 
-            (withColors 
+              pkgs = nixpkgs.legacyPackages.x86_64-linux;
+              modules = [
+                ./home
+                {
+                  font.size = {
+                    small = 10;
+                    normal = 12;
+                    big = 14;
+                  };
+                }
+              ];
+            }
+          );
+          "zane@clara" = home-manager.lib.homeManagerConfiguration (
+            withColors
             // {
-            pkgs = nixpkgs.legacyPackages.aarch64-linux;
-            modules = [
-              #./device/clara/
-              ./home
-              {
-                font.size = {
-                  small = 16;
-                  normal = 20;
-                  big = 24;
-                };
-              }
-            ];
-          });
+              pkgs = nixpkgs.legacyPackages.aarch64-linux;
+              modules = [
+                #./device/clara/
+                ./home
+                {
+                  font.size = {
+                    small = 16;
+                    normal = 20;
+                    big = 24;
+                  };
+                }
+              ];
+            }
+          );
         };
     };
 }
