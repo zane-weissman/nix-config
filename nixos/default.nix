@@ -123,6 +123,8 @@
   programs.fish.enable = true;
 
   
+  # use fish as shell
+  users.defaultUserShell = pkgs.fish;
 
   # List services that you want to enable:
   services = {
