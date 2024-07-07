@@ -25,4 +25,7 @@
     elisa
     kate
   ];
+  environment.systemPackages = with pkgs; [
+    ksystemlog
+  ];
 }
