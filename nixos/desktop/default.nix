@@ -10,6 +10,7 @@
   environment.systemPackages = with pkgs; [
     alacritty
     firefox
+    gimp
   ];
 
   # Enable sound.

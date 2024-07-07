@@ -24,6 +24,7 @@
           ./nixos/desktop
           ./nixos/desktop/gaming.nix
           ./nixos/desktop/plasma6.nix
+          ./nixos/hosts/adelaide.nix
         ];
       };
 
