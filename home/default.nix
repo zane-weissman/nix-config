@@ -33,6 +33,9 @@
       #backupFileExtension = "backup";
     };
 
-    home.packages = with pkgs; [ just ];
+    home.packages = with pkgs; [
+      just
+      nixfmt
+    ];
   };
 }

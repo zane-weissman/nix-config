@@ -49,6 +49,7 @@ in
       MOZ_USE_XINPUT2 = "1";
     };
 
+    # programs
     programs = {
       alacritty = {
         #enable = true;
