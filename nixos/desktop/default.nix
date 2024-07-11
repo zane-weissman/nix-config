@@ -20,4 +20,9 @@
     enable = true;
     pulse.enable = true;
   };
+
+  #misc services
+  services = {
+    printing.enable = true;
+  };
 }
