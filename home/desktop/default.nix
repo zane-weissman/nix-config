@@ -9,7 +9,10 @@ let
   myFuncs = import ../../lib/src.nix;
 in
 {
-  imports = [ ./alacritty.nix ];
+  imports = [
+    ../colors
+    ./alacritty.nix
+  ];
   options =
     let
       inherit (lib) mkOption types;

@@ -17,15 +17,24 @@
       nix-colors,
     }@inputs:
     {
-      nixosConfigurations."adelaide" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./nixos
-          ./nixos/desktop
-          ./nixos/desktop/gaming.nix
-          ./nixos/desktop/plasma6.nix
-          ./nixos/hosts/adelaide.nix
-        ];
+      nixosConfigurations = {
+        "adelaide" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./nixos
+            ./nixos/desktop
+            ./nixos/desktop/gaming.nix
+            ./nixos/desktop/plasma6.nix
+            ./nixos/hosts/adelaide.nix
+          ];
+        };
+        "natalia" = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [
+            ./nixos
+            ./nixos/hosts/natalia.nix
+          ];
+        };
       };
 
       homeConfigurations =
@@ -43,6 +52,7 @@
               pkgs = nixpkgs.legacyPackages.x86_64-linux;
               modules = [
                 ./home
+                ./home/desktop
                 ./home/desktop/i3
                 {
                   font.size = {
@@ -60,6 +70,7 @@
               pkgs = nixpkgs.legacyPackages.x86_64-linux;
               modules = [
                 ./home
+                ./desktop
                 {
                   font.size = {
                     small = 10;
@@ -77,6 +88,7 @@
               modules = [
                 #./device/clara/
                 ./home
+                ./desktop
                 {
                   font.size = {
                     small = 16;
@@ -87,6 +99,10 @@
               ];
             }
           );
+          "zane@natalia" = home-manager.lib.homeManagerConfiguration ({
+            pkgs = nixpkgs.legacyPackages.aarch64-linux;
+            modules = [ ./home ];
+          });
         };
     };
 }
