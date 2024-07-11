@@ -25,7 +25,6 @@
     "flakes"
   ];
 
-  networking.hostName = "adelaide"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
@@ -46,11 +45,10 @@
   };
 
   # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "caps:escape";
+  services.xserver.xkb.layout = "us";
+  services.xserver.xkb.options = "caps:escape";
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
@@ -73,6 +71,7 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    tree
   ];
 
   #program configs
