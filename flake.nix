@@ -70,7 +70,7 @@
               pkgs = nixpkgs.legacyPackages.x86_64-linux;
               modules = [
                 ./home
-                ./desktop
+                ./home/desktop
                 {
                   font.size = {
                     small = 10;
@@ -88,7 +88,8 @@
               modules = [
                 #./device/clara/
                 ./home
-                ./desktop
+                ./home/desktop
+                ./home/desktop/qtile
                 {
                   font.size = {
                     small = 16;

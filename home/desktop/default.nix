@@ -28,11 +28,6 @@ in
       ".local/share/fonts".source = ./fontconfig/fonts;
     };
 
-    xdg.configFile =
-      let
-        inherit (myFuncs) src;
-      in
-      src ./. [ "qtile" ];
     # no longer writing to .config/fontconfig/fonts.conf
     #  {
     #    "fontconfig/fonts.conf".text = ''
