@@ -38,7 +38,7 @@ import colors
 
 global mod 
 mod = "mod4"              # Sets mod key to SUPER/WINDOWS
-myTerm = "/usr/bin/alacritty"      # My terminal of choice
+myTerm = "nixGL alacritty"      # My terminal of choice
 myBrowser = "qutebrowser"       # My browser of choice
 myEmacs = "emacsclient -c -a 'emacs' " # The space at the end is IMPORTANT!
 
