@@ -6,7 +6,7 @@
 }:
 
 let
-  myFuncs = import ../../lib/src.nix;
+  myFuncs = import ../../../lib/src.nix;
 in
 {
   config = {
