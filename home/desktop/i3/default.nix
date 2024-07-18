@@ -6,6 +6,7 @@
 }:
 
 {
+  home.packages = with pkgs; [ i3wsr ];
   home.file = {
     ".i3/i3blocks".source = ./i3blocks;
     ".i3blocks.conf".source = ./i3blocks.conf;
