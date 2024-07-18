@@ -31,7 +31,7 @@
 
     home.packages = with pkgs; [
       just
-      nixfmt
+      nixfmt-rfc-style
     ];
   };
 }
