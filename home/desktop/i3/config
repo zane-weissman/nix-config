@@ -63,7 +63,7 @@ exec_always --no-startup-id /home/zane/.nix-profile/bin/i3wsr
 
 set $firefox flatpak run org.mozilla.firefox
 
-bindysm $mod+n exec $firefox localost:631/jobs
+bindsym $mod+n exec $firefox localost:631/jobs
 
 
 
@@ -378,7 +378,7 @@ bindsym $mod+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 #-old-#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Shift+e exit #xfce4-session-logout
+#bindsym $mod+Shift+e exit #xfce4-session-logout
 
 # redshift: run dmenu from list of files in $rsdir, then pkill redshift, finally pass chosen file to new redshift
 set $rsdir ~/.config/redshift-alternate
@@ -452,7 +452,8 @@ bindsym --release button2 kill
 #bindsym $mod+` i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Go to: '
 
 bindsym $mod+w exec $firefox #qutebrowser
-bindsym $mod+Shift+w exec flatpak run com.github.Eloston.UngoogledChromium
+bindsym $mod+Shift+w exec microsoft-edge
+#bindsym $mod+Shift+w exec flatpak run com.github.Eloston.UngoogledChromium
 bindsym $mod+e exec nemo
 
 # password manager
