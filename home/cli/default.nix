@@ -100,6 +100,7 @@ in
           cp = "cp -i";
           grep = "grep --color=auto";
           vim = "nvim";
+          ovim = "vim";
         };
         functions = {
           #sfsbs =  
