@@ -11,9 +11,13 @@ in
 {
   config = {
     xdg.configFile =
-      let
-        inherit (myFuncs) src;
-      in
-      src ./. [ "qtile" ];
+      # let
+      #   inherit (myFuncs) src;
+      # in
+      # src ./. [ "qtile" ];
+      # //
+      {
+        "qtile".source = ./.;
+      };
   };
 }
