@@ -12,6 +12,8 @@ in
   imports = [
     ../colors
     ./alacritty.nix
+    ./qtile
+    ./i3
   ];
   options =
     let

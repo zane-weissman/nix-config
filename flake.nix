@@ -53,7 +53,6 @@
               modules = [
                 ./home
                 ./home/desktop
-                ./home/desktop/i3
                 {
                   font.size = {
                     small = 10.5;
@@ -89,7 +88,6 @@
                 #./device/clara/
                 ./home
                 ./home/desktop
-                ./home/desktop/qtile
                 {
                   font.size = {
                     small = 16;
