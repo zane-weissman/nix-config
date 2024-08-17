@@ -37,6 +37,8 @@ from qtile_extras.widget.decorations import BorderDecoration
 import colors
 
 global mod 
+global mod2
+global keys
 mod = "mod4"              # Sets mod key to SUPER/WINDOWS
 myTerm = "nixGL alacritty"      # My terminal of choice
 myBrowser = "qutebrowser"       # My browser of choice
@@ -67,13 +69,12 @@ try:
 
     print("searching", device_dir , "...")
     from qtile_device import mod, mod2, keys
-    global mod2
-    global keys
     print("Imported device keys")
     print(keys)
     print(keys[0])
 except:
     print("Failed to import ../device/qtile_device.py")
+    mod2 = "shift"
     keys = []
 
 # Allows you to input a name when adding treetab section.
@@ -375,9 +376,9 @@ def init_widgets_list():
                  padding = 2,
                  fontsize = 14
                  ),
-        widget.WindowName(
-                 foreground = colors[6],
-                 max_chars = 40
+        widget.TaskList(
+                 foreground = colors[6]
+                 # max_chars = 40
                  ),
         widget.Spacer(length = 8),
         widget.CPU(
