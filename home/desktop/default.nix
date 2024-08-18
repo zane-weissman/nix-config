@@ -14,6 +14,7 @@ in
     ./alacritty.nix
     ./qtile
     ./i3
+    ./sxhkd.nix
   ];
   options =
     let
