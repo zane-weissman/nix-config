@@ -88,4 +88,4 @@ def _focus_window(qtile, dir, axis):
         qtile.focus_screen(win.group.screen.index)
         win.group.focus(win, True)
         if not isinstance(win, Screen):
-            win.focus(False)
+            win.focus(True)
