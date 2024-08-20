@@ -97,13 +97,46 @@ widget_defaults = dict(
 
 extension_defaults = widget_defaults.copy()
 
+groupbox1 = widget.GroupBox(
+        disable_drag = True,
+        fontsize = 14,
+        margin_y = 5,
+        margin_x = 0,
+        padding_y = 0,
+        padding_x = 1,
+        borderwidth = 3,
+        active = colors[8],
+        inactive = colors[1],
+        rounded = False,
+        highlight_color = colors[2],
+        highlight_method = "line",
+        this_current_screen_border = colors[7],
+        this_screen_border = colors [4],
+        other_current_screen_border = colors[7],
+        other_screen_border = colors[4],
+        visible_groups = ['1','2','3','4','5']
+        ),
+groupbox2 = widget.GroupBox(
+        disable_drag = True,
+        fontsize = 14,
+        margin_y = 5,
+        margin_x = 0,
+        padding_y = 0,
+        padding_x = 1,
+        borderwidth = 3,
+        active = colors[8],
+        inactive = colors[1],
+        rounded = False,
+        highlight_color = colors[2],
+        highlight_method = "line",
+        this_current_screen_border = colors[7],
+        this_screen_border = colors [4],
+        other_current_screen_border = colors[7],
+        other_screen_border = colors[4],
+        visible_groups = ['6','7','8','9','10']
+        ),
 def init_widgets_list():
     widgets_list = [
-        widget.Prompt(
-                 font = "Monospace",
-                 fontsize=18,
-                 foreground = colors[1]
-        ),
         widget.GroupBox(
                  disable_drag = True,
                  fontsize = 14,
@@ -121,6 +154,7 @@ def init_widgets_list():
                  this_screen_border = colors [4],
                  other_current_screen_border = colors[7],
                  other_screen_border = colors[4],
+                 visible_groups = ['1','2','3','4','5']
                  ),
         widget.TextBox(
                  text = '|',
@@ -146,8 +180,16 @@ def init_widgets_list():
                  padding = 2,
                  fontsize = 14
                  ),
+        widget.Prompt(
+                 font = "Monospace",
+                 fontsize=18,
+                 foreground = colors[1]
+        ),
         widget.TaskList(
-                 foreground = colors[6]
+                 foreground = colors[6],
+                 font = "Monospace",
+                 fontsize = 14,
+                 margin_y = 4
                  # max_chars = 40
                  ),
         widget.Spacer(length = 8),
@@ -246,33 +288,56 @@ def init_widgets_list():
         ]
     return widgets_list
 
+# def init_widgets_screen1_only_screen():
+#     widgets_screen1 = init_widgets_list()
+#     return widgets_screen1 
+widgets_screen1 = []
 def init_widgets_screen1():
-    widgets_screen1 = init_widgets_list()
+    #widgets_screen1 = []
+    widgets_screen1.extend(init_widgets_list())
     #if (qtile.screens == 2):
-    widgets_screen1[1].visible_groups = ['1', '2', '3', '4', '5']
+    widgets_screen1[0].visible_groups = ['1', '2', '3', '4', '5']
+    #widgets_screen1.insert(1, groupbox1)
     return widgets_screen1 
 
-# All other monitors' bars will display everything but widgets 22 (systray) and 23 (spacer).
+# All other monitors' bars will display everything but the last two widgets (systray and spacer).
 def init_widgets_screen2():
     widgets_screen2 = init_widgets_list()
-    widgets_screen2[1].visible_groups = ['6', '7', '8', '9', '10']
-    del widgets_screen2[22:24]
+    #widgets_screen2[1].visible_groups = ['6', '7', '8', '9', '10']
+    #widgets_screen2.insert(1, groupbox2)
+    del widgets_screen2[-2:-1]
     return widgets_screen2
 
 # For adding transparency to your bar, add (background="#00000000") to the "Screen" line(s)
 # For ex: Screen(top=bar.Bar(widgets=init_widgets_screen2(), background="#00000000", size=24)),
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26))]
+    return [Screen(bottom=bar.Bar(widgets=widgets_screen1, size=26)),
+            Screen(bottom=bar.Bar(widgets=init_widgets_screen2(), size=26)),
+            Screen(bottom=bar.Bar(widgets=init_widgets_screen2(), size=26))]
+
+@hook.subscribe.screens_reconfigured
+async def update_widgets():
+    if len(qtile.screens) == 1:
+        qtile.screen.bar[bottom].widget[groupbox].visible_groups = ['1','2','3','4','5','6','7','8','9','10']
+
+#@hook.subscribe.screens_reconfigured
+#async def _():
+#    if len(qtile.screens) > 1:
+#        groupbox1.visible_groups = ['1', '2', '3','4','5']
+#    else:
+#        groupbox1.visible_groups = ['1', '2', '3','4','5','6', '7', '8','9','10']
+#    if hasattr(groupbox1, 'bar'):
+#        groupbox1.bar.draw()
 
 if __name__ in ["config", "__main__"]:
+    init_widgets_screen1()
     screens = init_screens()
-    #if len(qtile.screens) == 1:
-    widgets_list = init_widgets_list()
-    widgets_screen1 = init_widgets_screen1()
-    widgets_screen2 = init_widgets_screen2()
+    update_widgets()
+    #widgets_list = init_widgets_list()
+    #widgets_screen1 = init_widgets_screen1()
+    #widgets_screen2 = init_widgets_screen2()
+
 
 def window_to_prev_group(qtile):
     if qtile.currentWindow is not None:
@@ -306,7 +371,7 @@ dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
 bring_front_click = False
-cursor_warp = False
+cursor_warp = True
 floating_layout = layout.Floating(
     border_focus=colors[8],
     border_width=2,
