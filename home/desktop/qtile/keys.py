@@ -18,10 +18,10 @@ keys = []
 
 keys.extend([
     # The essentials
-    Key([mod], "Return", lazy.spawn(myTerm), desc="Terminal"),
-    Key([mod, mod2], "Return", lazy.spawn("xterm"), desc="Terminal"),
-    Key([mod], "d", lazy.spawn("rofi -show drun"), desc='Run Launcher'),
-    Key([mod], "w", lazy.spawn(myBrowser), desc='Web browser'),
+    #Key([mod], "Return", lazy.spawn(myTerm), desc="Terminal"),
+    #Key([mod, mod2], "Return", lazy.spawn("xterm"), desc="Terminal"),
+    #Key([mod], "d", lazy.spawn("rofi -show drun"), desc='Run Launcher'),
+    #Key([mod], "w", lazy.spawn(myBrowser), desc='Web browser'),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, mod2], "r", lazy.reload_config(), desc="Reload the config"),
@@ -32,8 +32,17 @@ keys.extend([
     # Some layouts like 'monadtall' only need to use j/k to move
     # through the stack, but other layouts like 'columns' will
     # require all four directions h/j/k/l to move around.
-    Key([mod], "h", lazy.function(traverse.left), desc="Move focus to left"),
-    Key([mod], "l", lazy.function(traverse.right), desc="Move focus to right"),
+    Key([mod], "h",
+        # TODO: import "layouts" and make a function "not_layout(exclude_list)" that creates a list of layouts minus exclude_list
+        #lazy.function(traverse.left).when(layout!=["col"]),
+        lazy.function(traverse.left),
+        #lazy.layout.left().when(layout=["col"]),
+        desc="Move focus to left"),
+    Key([mod], "l",
+        #lazy.function(traverse.right).when(layout!=["col"]),
+        lazy.function(traverse.right),
+        #lazy.layout.left().when(layout=["col"]),
+        desc="Move focus to right"),
     Key([mod], "j", lazy.function(traverse.down), desc="Move focus down"),
     Key([mod], "k", lazy.function(traverse.up), desc="Move focus up"),
     Key([mod], "u", lazy.screen.prev_group(), desc="Previous group"),
