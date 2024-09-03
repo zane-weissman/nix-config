@@ -15,7 +15,7 @@ in
   xdg.configFile."sxhkd/sxhkdrc".text = ''
     super{_, + shift} + w
       {${firefox}, microsoft-edge}
-    super{_, + shift} + enter
+    super{_, + shift} + Return
       {${terminal}, xterm}
     super + e
       ${files}
