@@ -11,6 +11,7 @@
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs =
@@ -19,7 +20,8 @@
       nixpkgs,
       home-manager,
       nix-colors,
-      nixos-cosmic
+      nixos-cosmic,
+      nixos-hardware
     }@inputs:
     {
       nixosConfigurations = {
@@ -38,6 +40,23 @@
                 trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
               };
             }
+          ];
+        };
+        "frances" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./nixos
+            ./nixos/desktop
+            ./nixos/desktop/plasma6.nix
+            ./nixos/hosts/frances.nix
+            nixos-hardware.nixosModules.framework-13-7040-amd
+            # nixos-cosmic.nixosModules.default
+            # {
+            #   nix.settings = {
+            #     substituters = [ "https://cosmic.cachix.org/" ];
+            #     trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+            #   };
+            # }
           ];
         };
         "natalia" = nixpkgs.lib.nixosSystem {
