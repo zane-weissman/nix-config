@@ -23,4 +23,10 @@
     fwupd.enable = true;
     power-profiles-daemon.enable = true;
   };
+  
+  services.libinput.touchpad = {
+    clickMethod = "clickfinger";
+  };
+  
+  console.font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
 }

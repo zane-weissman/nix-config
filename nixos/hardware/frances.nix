@@ -8,14 +8,61 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
+  # boot.initrd.postDeviceCommands = lib.mkAfter ''
+  #   btrfs subvolume snapshot local/root-blank local
+  # '';
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
   boot.supportedFilesystems = ["zfs"];
 
   fileSystems."/" =
-    { device = "rpool/local/root";
-      fsType = "zfs";
+    { device = "/dev/disk/by-uuid/3dcd06da-78b9-40dd-83f4-09158757ca51";
+      fsType = "btrfs";
+      options = [ "defaults"
+                  "compress=zstd"
+                  "subvol=local/root" 
+                  "noatime"
+                ];
     };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/3dcd06da-78b9-40dd-83f4-09158757ca51";
+      fsType = "btrfs";
+      options = [ "defaults"
+                  "compress=zstd"
+                  "subvol=local/nix" 
+                  "noatime"
+                ];
+    };
+
+  fileSystems."/persist" =
+    { device = "/dev/disk/by-uuid/3dcd06da-78b9-40dd-83f4-09158757ca51";
+      fsType = "btrfs";
+      options = [ "defaults"
+                  "compress=zstd"
+                  "subvol=safe/persist" 
+                ];
+    };
+
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/3dcd06da-78b9-40dd-83f4-09158757ca51";
+      fsType = "btrfs";
+      options = [ "defaults"
+                  "compress=zstd"
+                  "subvol=safe/home" 
+                ];
+    };
+  
+  fileSystems."/var/log" = 
+    { device = "/dev/disk/by-uuid/3dcd06da-78b9-40dd-83f4-09158757ca51";
+      fsType = "btrfs";
+      options = [ "defaults"
+                  "compress=zstd"
+                  "subvol=safe/log" 
+                ];
+      neededForBoot = true;
+    };
+
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/5003-7E81";
@@ -23,24 +70,6 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  fileSystems."/nix" =
-    { device = "rpool/local/nix";
-      fsType = "zfs";
-    };
-
-  fileSystems."/home" =
-    { device = "rpool/safe/home";
-      fsType = "zfs";
-    };
-
-  fileSystems."/persist" =
-    { device = "rpool/safe/persist";
-      fsType = "zfs";
-    };
-
-  swapDevices = [ {
-    device = "/dev/zvol/rpool/swap";
-  } ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
