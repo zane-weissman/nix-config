@@ -24,6 +24,9 @@
     "nix-command"
     "flakes"
   ];
+  
+  #flatpak
+  services.flatpak.enable = true;
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -39,7 +42,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
-    lib.mkDefault font = "Lat2-Terminus16";
+    font = lib.mkDefault "Lat2-Terminus16";
     #keyMap = "us";
     useXkbConfig = true; # use xkb.options in tty.
   };
@@ -55,6 +58,8 @@
 
   # allow unfree
   nixpkgs.config.allowUnfree = true;
+
+  # users
   users.mutableUsers = false;
   users.users.zane = {
     isNormalUser = true;

@@ -94,6 +94,22 @@
               ];
             }
           );
+          "zane@frances" = home-manager.lib.homeManagerConfiguration (
+            withColors
+            // {
+              pkgs = nixpkgs.legacyPackages.x86_64-linux;
+              modules = [
+               ./home
+               ./home/desktop
+                {
+                  font.size = {
+                    small = 10;
+                    normal = 12;
+                    big = 14;
+                  };
+                }
+            }
+          );
           "zane@adelaide" = home-manager.lib.homeManagerConfiguration (
             withColors
             // {

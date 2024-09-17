@@ -42,6 +42,9 @@
     echo "restoring blank /local/root subvolume..."
     btrfs subvolume snapshot /mnt/local/root-blank /mnt/local/root
 
+    # while we're at it, delete logs older than 48 hours
+    # find /mnt/safe/log/* -mtime +2 -delete
+
     # Once we're done rolling back to a blank snapshot,
     # we can unmount /mnt and continue on the boot process.
     umount /mnt
