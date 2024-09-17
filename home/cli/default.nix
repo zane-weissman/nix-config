@@ -35,9 +35,9 @@ in
         "nvim/lua"
         "fish/functions"
       ];
-    xdg.configFile = {
-      "just/justfile".src = "justfile-global";
-    };
+    # xdg.configFile = {
+    #   "just/justfile".src = "justfile-global";
+    # };
 
     home.sessionVariables = {
       EDITOR = "nvim";
