@@ -99,8 +99,8 @@
             // {
               pkgs = nixpkgs.legacyPackages.x86_64-linux;
               modules = [
-               ./home
-               ./home/desktop
+                ./home
+                ./home/desktop
                 {
                   font.size = {
                     small = 10;
@@ -108,6 +108,7 @@
                     big = 14;
                   };
                 }
+              ];
             }
           );
           "zane@adelaide" = home-manager.lib.homeManagerConfiguration (
