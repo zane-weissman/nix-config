@@ -12,6 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs =
@@ -21,7 +22,8 @@
       home-manager,
       nix-colors,
       nixos-cosmic,
-      nixos-hardware
+      nixos-hardware,
+      nix-flatpak,
     }@inputs:
     {
       nixosConfigurations = {
@@ -50,6 +52,7 @@
             ./nixos/desktop/plasma6.nix
             ./nixos/hosts/frances.nix
             nixos-hardware.nixosModules.framework-13-7040-amd
+            nix-flatpak.nixosModules.nix-flatpak
             # nixos-cosmic.nixosModules.default
             # {
             #   nix.settings = {
@@ -101,6 +104,7 @@
               modules = [
                 ./home
                 ./home/desktop
+                ./home/hosts/frances.nix
                 {
                   font.size = {
                     small = 10;
