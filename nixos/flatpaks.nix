@@ -7,6 +7,9 @@
 
 {
   services.flatpak = {
-    packages = [ "com.microsoft.Edge" ];
+    packages = [
+      "us.zoom.Zoom"
+      "com.microsoft.Edge"
+    ];
   };
 }
