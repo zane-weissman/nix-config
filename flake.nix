@@ -51,16 +51,16 @@
             ./nixos/desktop
             ./nixos/desktop/plasma6.nix
             ./nixos/hosts/frances.nix
-            ./nixos/desktop/cosmic.nix
+            #./nixos/desktop/cosmic.nix
             nixos-hardware.nixosModules.framework-13-7040-amd
             nix-flatpak.nixosModules.nix-flatpak
-            nixos-cosmic.nixosModules.default
-            {
-              nix.settings = {
-                substituters = [ "https://cosmic.cachix.org/" ];
-                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
-              };
-            }
+            # nixos-cosmic.nixosModules.default
+            # {
+            #   nix.settings = {
+            #     substituters = [ "https://cosmic.cachix.org/" ];
+            #     trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+            #   };
+            # }
           ];
         };
         "natalia" = nixpkgs.lib.nixosSystem {
