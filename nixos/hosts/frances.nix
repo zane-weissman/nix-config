@@ -7,7 +7,10 @@
 
 {
 
-  imports = [ ../hardware/frances.nix ];
+  imports = [
+    ../hardware/frances.nix
+    ../persistence
+  ];
   networking.hostName = "frances"; # Define your hostname.
   networking.hostId = "3c68a037"; # required for zfs
 
@@ -23,10 +26,16 @@
     fwupd.enable = true;
     power-profiles-daemon.enable = true;
   };
-  
+
   services.libinput.touchpad = {
     clickMethod = "clickfinger";
   };
-  
+
   console.font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
+
+  #environment.etc.
+  security.pki.certificates = [
+    (builtins.readFile /persist/etc/ssl/certs/9f3cc5f891b54e947d422f8cca31345b8c3ec55a.cer)
+    (builtins.readFile /persist/etc/ssl/certs/zweissman.pem)
+  ];
 }

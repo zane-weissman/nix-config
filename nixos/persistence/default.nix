@@ -52,7 +52,10 @@
 
   # network manager
   environment.etc = {
-    "NetworkManager/system-connections".source = "/persist/etc/NetworkManager/system-connections";
+    # machine
+    "adjtime".source = /persist/etc/adjtime;
+    "machine-id".source = /persist/etc/machine-id;
+    "NetworkManager/system-connections".source = /persist/etc/NetworkManager/system-connections;
   };
   systemd.tmpfiles.rules = [
     "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
@@ -60,10 +63,6 @@
     "L /var/lib/NetworkManager/timestamps - - - - /persist/var/lib/NetworkManager/timestamps"
   ];
 
-  # machine
-  adjtime.source = /persist/etc/adjtime;
-  machine-id.source = /persist/etc/machine-id;
-  
   # sudo lecture
   security.sudo.extraConfig = ''
     # rollback results in sudo lecture after reboot - disable it
