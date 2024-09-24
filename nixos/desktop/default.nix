@@ -11,6 +11,7 @@
     alacritty
     firefox
     gimp
+    wlr-randr
   ];
 
   # Enable sound.
