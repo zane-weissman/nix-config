@@ -50,18 +50,26 @@
     umount /mnt
   '';
 
-  # network manager
+  # etc files
   environment.etc = {
     # machine
     "adjtime".source = /persist/etc/adjtime;
     "machine-id".source = /persist/etc/machine-id;
-    "NetworkManager/system-connections".source = /persist/etc/NetworkManager/system-connections;
+    #"NetworkManager/system-connections".source = /persist/etc/NetworkManager/system-connections;
+    #"NetworkManager/VPN".source = /persist/etc/NetworkManager/VPN;
   };
+
+  # symlinks
   systemd.tmpfiles.rules = [
     "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
     "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
     "L /var/lib/NetworkManager/timestamps - - - - /persist/var/lib/NetworkManager/timestamps"
   ];
+
+  # networkmanager - set path for system-connections folder
+  networking.networkmanager.settings.keyfile.path = "/persist/etc/NetworkManager/system-connections/";
+  #[keyfile]
+  #path="/persist/etc/NetworkManager/system-connections/"
 
   # sudo lecture
   security.sudo.extraConfig = ''

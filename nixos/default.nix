@@ -16,6 +16,14 @@
     ./flatpaks.nix
   ];
 
+  environment.systemPackages = with pkgs; [
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    tree
+    bash
+    gparted
+  ];
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -31,7 +39,10 @@
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager = {
+    enable = true; # Easiest to use and most distros use this by default.
+    plugins = with pkgs; [ networkmanager-openconnect ];
+  };
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -78,13 +89,6 @@
   # system packages for all nixos systems
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    tree
-    bash
-  ];
 
   #program configs
 
