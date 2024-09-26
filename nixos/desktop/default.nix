@@ -26,5 +26,11 @@
   services = {
     printing.enable = true;
   };
+  # auto-discover printers
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
 
 }
