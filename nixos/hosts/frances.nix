@@ -35,7 +35,7 @@
 
   #environment.etc.
   security.pki.certificates = [
-    (builtins.readFile /persist/etc/ssl/certs/9f3cc5f891b54e947d422f8cca31345b8c3ec55a.cer)
-    (builtins.readFile /persist/etc/ssl/certs/zweissman.pem)
+    #(builtins.readFile /persist/etc/ssl/certs/9f3cc5f891b54e947d422f8cca31345b8c3ec55a.cer)
+    #(builtins.readFile /persist/etc/ssl/certs/zweissman.pem)
   ];
 }
