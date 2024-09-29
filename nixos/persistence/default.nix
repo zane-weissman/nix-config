@@ -5,6 +5,11 @@
   ...
 }:
 
+let
+  # make a list of systemd tmpfiles rules for symlinks
+  # for each element in links, link from /el/e/ment to /dir/el/e/ment
+  makeSymLinks = dir: links: (lib.forEach links (link: "L ${link} - - - - ${dir}/${link}\n"));
+in
 {
   # rollback btrfs
   # Note `lib.mkBefore` is used instead of `lib.mkAfter` here.
@@ -64,6 +69,9 @@
     "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
     "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
     "L /var/lib/NetworkManager/timestamps - - - - /persist/var/lib/NetworkManager/timestamps"
+
+    "L /var/lib/flatpak/ - - - - /persist/var/lib/flatpak/"
+    "L /var/lib/fprint/ - - - - /persist/var/lib/fprint/"
   ];
 
   # networkmanager - set path for system-connections folder
