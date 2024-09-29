@@ -13,6 +13,7 @@
     gimp
     wlr-randr
     wl-clipboard
+    brave
   ];
 
   # Enable sound.
