@@ -13,6 +13,10 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+    kmonad = {
+      url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -24,6 +28,7 @@
       nixos-cosmic,
       nixos-hardware,
       nix-flatpak,
+      kmonad,
     }@inputs:
     {
       nixosConfigurations = {
@@ -54,6 +59,7 @@
             ./nixos/desktop/cosmic.nix
             nixos-hardware.nixosModules.framework-13-7040-amd
             nix-flatpak.nixosModules.nix-flatpak
+            kmonad.nixosModules.default
             nixos-cosmic.nixosModules.default
             {
               nix.settings = {
@@ -76,7 +82,7 @@
           modules = [
             (nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
             ./nixos
-            ./nixos/desktop/
+            ./nixos/desktop
             ./nixos/desktop/plasma6.nix
             nix-flatpak.nixosModule.nix-flatpak
           ];
