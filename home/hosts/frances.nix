@@ -9,6 +9,7 @@
   #colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
   colorScheme = import ../colors/catppuccin-mocha-custom.nix;
   
+  environment.systemPackages = with pkgs; [ kmonad ];
   services.kmonad = {
     enable = true;
     keyboards = {

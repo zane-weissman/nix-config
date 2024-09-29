@@ -84,6 +84,8 @@
 
   users.groups = {
     plugdev.members = [ "zane" ];
+    uinput.members = [ "zane" ];
+    input.members = [ "zane" ];
   };
 
   # system packages for all nixos systems
@@ -110,6 +112,9 @@
   };
 
   services.udev.extraRules = ''
+    # uinput rules for kmonad
+    KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
+
     # Rules for Oryx web flashing and live training
     KERNEL=="hidraw*", ATTRS{idVendor}=="16c0", MODE="0664", GROUP="plugdev"
     KERNEL=="hidraw*", ATTRS{idVendor}=="3297", MODE="0664", GROUP="plugdev"
