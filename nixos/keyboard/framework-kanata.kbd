@@ -24,9 +24,9 @@
   esc   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11   f12   del
   grv    1    2    3    4    5    6    7    8    9     0     -     =   bspc
   tab    q    w    e    r    t    y    u    i    o     p     [     ]    \  
-  caps   a    s    d    f    g    h    j    k    l    ;      '       ret
+  caps  @ha  @hs  @hd  @hf   g    h   @hj  @hk  @hl  @h;     '       ret
   lsft   z    x    c    v    b    n    m    ,    .    /     up  rsft  
-  lctl wkup lmet lalt      spc           @agr rmet  left  down right
+  lctl wkup lmet lalt     @spclock       @agr rmet  left  down right
 )
 (deflayer altgr
   _      _    _    _    _    _    _    _    _    _     _     _     _     _   
@@ -37,36 +37,139 @@
   _    _    _    _         _              _    _     _     _    _    
 )
 
-(defsrc homerow
-  a s d f  ;;j k l ;
-)
-(deflayer :source homerow
-  hra hrs hrd hrf   ;;hrj hrk hrl hr;
-)
+;; hrm activate
+;; (defalias hrma (layer-switch homerow-mods))
+
+(defalias spclock
+  (switch
+    (lmet rmet) lmet fallthrough
+    (lsft rsft) lsft fallthrough
+    (lctl rctl) lctl fallthrough
+    (lalt ralt) lalt fallthrough
+    ((input real ralt)) @agr fallthrough
+    ((not lmet rmet lsft rsft lctl rctl lalt ralt (input real ralt))) spc break
+  ))
+
+
+;; home row mods map
+;; (deflayermap homerow-mods
+;;   a (chord homerow-mods-l p)
+;;   s (chord homerow-mods-l r)
+;;   d (chord homerow-mods-l m)
+;;   f (chord homerow-mods-l i)
+;;   j (chord homerow-mods-r i)
+;;   k (chord homerow-mods-r m)
+;;   l (chord homerow-mods-r r)
+;;   ; (chord homerow-mods-r p)
+;; )
+
+;; home row mods defalias for main layout
 (defalias
-  hra (chord homerow-mods-l p)
-  hrs (chord homerow-mods-l r)
-  hrd (chord homerow-mods-l m)
-  hrf (chord homerow-mods-l i)
-  hrj ;; (chord homerow-mods-l p)
-  hrk ;; (chord homerow-mods-l p)
-  hrl ;; (chord homerow-mods-l p)
-  hr; ;; (chord homerow-mods-l p)
+  ha (chord homerow-mods-l p)
+  hs (chord homerow-mods-l r)
+  hd (chord homerow-mods-l m)
+  hf (chord homerow-mods-l i)
+  hj (chord homerow-mods-r i)
+  hk (chord homerow-mods-r m)
+  hl (chord homerow-mods-r r)
+  h; (chord homerow-mods-r p)
 )
 
-(defchords homerow-mods-l 50 ;; home row mods 
+;; home row mod timing variables
+(defvar 
+;; timeout for tap-hold part of one-shot hold system
+  osh-time 300
+;; timeout for one-shot itself (when to "unstick" the key)
+  os-time 2000
+;; chord keys have to be hit within this many ms of each other
+  chord-time 50
+)
+
+(defalias
+  ;; one shot / hold (left hand)
+  osh-lm (multi f24 (tap-hold-press $osh-time $osh-time (one-shot $os-time lmet) lmet))
+  osh-ls (multi f24 (tap-hold-press $osh-time $osh-time (one-shot $os-time lsft) lsft))
+  osh-lc (multi f24 (tap-hold-press $osh-time $osh-time (one-shot $os-time lctl) lctl))
+  osh-la (multi f24 (tap-hold-press $osh-time $osh-time (one-shot $os-time lalt) lalt))
+
+  osh-lms (multi f24 (tap-hold-press $osh-time $osh-time 
+                       (multi (one-shot $os-time lmet) (one-shot $os-time lsft)) 
+                       (multi lmet lsft)))
+  osh-lcs (multi f24 (tap-hold-press $osh-time $osh-time 
+                       (multi (one-shot $os-time lctl) (one-shot $os-time lsft)) 
+                       (multi lctl lsft)))
+  osh-lca (multi f24 (tap-hold-press $osh-time $osh-time 
+                       (multi (one-shot $os-time lctl) (one-shot $os-time lalt)) 
+                       (multi lctl lalt)))
+  osh-lma (multi f24 (tap-hold-press $osh-time $osh-time 
+                       (multi (one-shot $os-time lmet) (one-shot $os-time lalt)) 
+                       (multi lmet lalt)))
+  osh-lmsac (multi f24 (tap-hold-press $osh-time $osh-time 
+                         (multi (one-shot $os-time lmet) 
+                           (multi (one-shot $os-time lsft) 
+                             (multi (one-shot $os-time lalt) 
+                                      (one-shot $os-time lctl)) ))
+                         (multi lctl 
+                           (multi lalt 
+                             (multi lmet lsft)))))
+  ;; one shot / hold (left hand)
+  osh-rm (multi f24 (tap-hold-press $osh-time $osh-time (one-shot $os-time rmet) rmet))
+  osh-rs (multi f24 (tap-hold-press $osh-time $osh-time (one-shot $os-time rsft) rsft))
+  osh-rc (multi f24 (tap-hold-press $osh-time $osh-time (one-shot $os-time rctl) rctl))
+  osh-ra (multi f24 (tap-hold-press $osh-time $osh-time (one-shot $os-time ralt) ralt))
+
+  osh-rms (multi f24 (tap-hold-press $osh-time $osh-time 
+                       (multi (one-shot $os-time rmet) (one-shot $os-time rsft)) 
+                       (multi rmet rsft)))
+  osh-rcs (multi f24 (tap-hold-press $osh-time $osh-time 
+                       (multi (one-shot $os-time rctl) (one-shot $os-time rsft)) 
+                       (multi rctl rsft)))
+  osh-rca (multi f24 (tap-hold-press $osh-time $osh-time 
+                       (multi (one-shot $os-time rctl) (one-shot $os-time ralt)) 
+                       (multi rctl ralt)))
+  osh-rma (multi f24 (tap-hold-press $osh-time $osh-time 
+                       (multi (one-shot $os-time rmet) (one-shot $os-time ralt)) 
+                       (multi rmet ralt)))
+  osh-rmsac (multi f24 (tap-hold-press $osh-time $osh-time 
+                         (multi (one-shot $os-time rmet) 
+                           (multi (one-shot $os-time rsft) 
+                             (multi (one-shot $os-time ralt) 
+                                      (one-shot $os-time rctl)) ))
+                         (multi rctl 
+                           (multi ralt 
+                             (multi rmet rsft)))))
+)
+
+(defchords homerow-mods-l $chord-time ;; home row mods 
   ;; pinky ring middle index
-  (p      )  a
-  (  r    )  s
-  (    m  )  d
-  (      i)  f
-  (    m i)  lmet
-  (  r m  )  lsft
-  (p r    )  lctl
-  (p     i)  lalt
-  ;; (  r   i) (multi)
-  ;; (p   m  ) (multi)
-  ;; (p r   i) (multi)
-  ;; (p   m i) (multi)
-  ;; (p r m i) (multi)
+  (p      ) a
+  (  r    ) s
+  (    m  ) d
+  (      i) f
+  (    m i) @osh-lm
+  (  r m  ) @osh-ls
+  (p r    ) @osh-lc
+  (p     i) @osh-la
+  (  r   i) @osh-lms
+  (p   m  ) @osh-lcs
+  (p r   i) @osh-lca
+  (p   m i) @osh-lma
+  (p r m i) @osh-lmsac
+)
+
+(defchords homerow-mods-r $chord-time ;; home row mods 
+  ;; pinky ring middle index
+  (p      ) ;
+  (  r    ) l
+  (    m  ) k
+  (      i) j
+  (    m i) @osh-lm
+  (  r m  ) @osh-ls
+  (p r    ) @osh-lc
+  (p     i) @osh-la
+  (  r   i) @osh-lms
+  (p   m  ) @osh-lcs
+  (p r   i) @osh-lca
+  (p   m i) @osh-lma
+  (p r m i) @osh-lmsac
 )
