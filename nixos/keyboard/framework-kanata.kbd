@@ -1,7 +1,8 @@
-(defcfg
-  linux-dev "/dev/input/by-id/usb-04d9_daskeyboard-event-kbd"
-  danger-enable-cmd false ;; maybe change later?
-)
+;; DO NOT INCLUDE DEFCFG HERE!! use extraDefCfg in nixos module
+;; (defcfg
+;;  linux-dev ""
+;;  danger-enable-cmd false ;; maybe change later?
+;;)
 
 ;; aliases
 
@@ -36,3 +37,36 @@
   _    _    _    _         _              _    _     _     _    _    
 )
 
+(defsrc homerow
+  a s d f  ;;j k l ;
+)
+(deflayer :source homerow
+  hra hrs hrd hrf   ;;hrj hrk hrl hr;
+)
+(defalias
+  hra (chord homerow-mods-l p)
+  hrs (chord homerow-mods-l r)
+  hrd (chord homerow-mods-l m)
+  hrf (chord homerow-mods-l i)
+  hrj ;; (chord homerow-mods-l p)
+  hrk ;; (chord homerow-mods-l p)
+  hrl ;; (chord homerow-mods-l p)
+  hr; ;; (chord homerow-mods-l p)
+)
+
+(defchords homerow-mods-l 50 ;; home row mods 
+  ;; pinky ring middle index
+  (p      )  a
+  (  r    )  s
+  (    m  )  d
+  (      i)  f
+  (    m i)  lmet
+  (  r m  )  lsft
+  (p r    )  lctl
+  (p     i)  lalt
+  ;; (  r   i) (multi)
+  ;; (p   m  ) (multi)
+  ;; (p r   i) (multi)
+  ;; (p   m i) (multi)
+  ;; (p r m i) (multi)
+)
