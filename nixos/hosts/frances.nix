@@ -42,7 +42,11 @@
   environment.systemPackages = with pkgs; [ kanata ]; # change to kanata-with-cmd?
   services.kanata = {
     enable = true;
-    keyboards.frameworkKeyboard.config = builtins.readFile ../keyboard/framework-kanata.kbd;
+    keyboards.frameworkKeyboard = {
+      devices = [ "/dev/input/by-path/platform-i8042-serio-0-event-kbd" ];
+      extraDefCfg = "";
+      config = builtins.readFile ../keyboard/framework-kanata.kbd;
+    };
   };
 
   # environment.systemPackages = with pkgs; [ kmonad ];
