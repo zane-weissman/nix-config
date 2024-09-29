@@ -25,7 +25,9 @@
     elisa
     kate
   ];
-  environment.systemPackages = with pkgs; [
-    ksystemlog
-  ];
+  environment.systemPackages = with pkgs; [ ksystemlog ];
+
+  #nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
+  nixpkgs.config.firefox.nativeMessagingHosts = [ pkgs.kdePackages.plasma-browser-integration ];
+
 }

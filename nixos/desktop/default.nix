@@ -12,6 +12,7 @@
     firefox
     gimp
     wlr-randr
+    wl-clipboard
   ];
 
   # Enable sound.
