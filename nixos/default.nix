@@ -22,6 +22,9 @@
     tree
     bash
     gparted
+    man-pages
+    man-pages-posix
+    cachix
   ];
 
   # Use the systemd-boot EFI boot loader.
