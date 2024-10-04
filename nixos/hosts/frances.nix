@@ -40,8 +40,8 @@
     keyboards.frameworkKeyboard = {
       devices = [ "/dev/input/by-path/platform-i8042-serio-0-event-kbd" ];
       extraDefCfg = "";
-      config = lib.string.concatLines [
-        ../keyboard/framework-kanata.kbd
+      config = lib.strings.concatLines [
+        ../keyboard/framework.kbd
         ../keyboard/homerow-mods.kbd
       ];
     };
