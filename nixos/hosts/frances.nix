@@ -34,18 +34,16 @@
   console.font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
 
   #environment.etc.
-  security.pki.certificates = [
-    #(builtins.readFile /persist/etc/ssl/certs/9f3cc5f891b54e947d422f8cca31345b8c3ec55a.cer)
-    #(builtins.readFile /persist/etc/ssl/certs/zweissman.pem)
-  ];
-
   environment.systemPackages = with pkgs; [ kanata ]; # change to kanata-with-cmd?
   services.kanata = {
     enable = true;
     keyboards.frameworkKeyboard = {
       devices = [ "/dev/input/by-path/platform-i8042-serio-0-event-kbd" ];
       extraDefCfg = "";
-      config = builtins.readFile ../keyboard/framework-kanata.kbd;
+      config = lib.string.concatLines [
+        ../keyboard/framework-kanata.kbd
+        ../keyboard/homerow-mods.kbd
+      ];
     };
   };
 
