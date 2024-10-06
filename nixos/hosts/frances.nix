@@ -41,8 +41,21 @@
       devices = [ "/dev/input/by-path/platform-i8042-serio-0-event-kbd" ];
       extraDefCfg = "";
       config = lib.strings.concatLines [
-        ../keyboard/framework.kbd
-        ../keyboard/homerow-mods.kbd
+        (builtins.readFile ../keyboard/framework.kbd)
+        (builtins.readFile ../keyboard/homerow-mods.kbd)
+      ];
+    };
+    keyboards.voyager = {
+      devices = [
+        "/dev/input/by-path/pci-0000:c3:00.4-usb-0:1:1.2-event"
+        "/dev/input/by-path/pci-0000:c3:00.4-usbv2-0:1:1.2-event"
+        "/dev/input/by-path/pci-0000:c3:00.4-usb-0:1:1.0-event-kbd"
+        "/dev/input/by-path/pci-0000:c3:00.4-usbv2-0:1:1.2-event-kbd"
+      ];
+      extraDefCfg = "";
+      config = lib.strings.concatLines [
+        (builtins.readFile ../keyboard/voyager.kbd)
+        (builtins.readFile ../keyboard/homerow-mods.kbd)
       ];
     };
   };
