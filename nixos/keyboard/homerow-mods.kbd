@@ -42,6 +42,8 @@
   osh-time 300
 ;; timeout for one-shot itself (when to "unstick" the key)
   os-time 2000
+;; timeout for caps-word
+  cpsw-time 2000
 ;; chord keys have to be hit within this many ms of each other
   chord-time 50
 )
@@ -108,7 +110,7 @@
   (    m  ) d
   (      i) f
   (    m i) @osh-lm
-  (  r m  ) @osh-ls
+  (  r m  ) (fork @osh-ls (caps-word $cpsw-time) (rsft))
   (p r    ) @osh-lc
   (p     i) @osh-la
   (  r   i) @osh-lms
@@ -124,13 +126,13 @@
   (  r    ) l
   (    m  ) k
   (      i) j
-  (    m i) @osh-lm
-  (  r m  ) @osh-ls
-  (p r    ) @osh-lc
-  (p     i) @osh-la
-  (  r   i) @osh-lms
-  (p   m  ) @osh-lcs
-  (p r   i) @osh-lca
-  (p   m i) @osh-lma
-  (p r m i) @osh-lmsac
+  (    m i) @osh-rm
+  (  r m  ) (fork @osh-rs (caps-word $cpsw-time) (lsft))
+  (p r    ) @osh-rc
+  (p     i) @osh-ra
+  (  r   i) @osh-rms
+  (p   m  ) @osh-rcs
+  (p r   i) @osh-rca
+  (p   m i) @osh-rma
+  (p r m i) @osh-rmsac
 )
