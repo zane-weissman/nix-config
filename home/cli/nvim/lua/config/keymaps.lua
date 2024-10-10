@@ -66,7 +66,7 @@ local splitAttrSet = function()
   -- substitute . with " = {" and line break
   send_normal("s = {<cr><Esc>")
   -- if original line contained "{" (or "["), skip ahead to matching "}" and fix indent
-  if string.find(line, "{") or string.find(line, "%[") or string.find(line, "%(") then
+  if string.find(line, "{") or string.find(line, [=[%[]=]) or string.find(line, [[%(]]) then
     send_normal("%V%j><Esc>k%")
   end
   -- closing }; and start writing to above line
