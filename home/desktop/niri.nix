@@ -5,8 +5,13 @@
   ...
 }:
 {
-    programs.niri.settings = {
+  programs.niri = {
+    settings = {
       outputs."eDP-1".scale = 2.0;
+      input = {
+        keyboard.xkb.options = "caps:escape";
+      };
+      prefer-no-csd = true;
       binds =
         with lib;
         with config.lib.niri.actions;
@@ -52,6 +57,17 @@
             in
             listToAttrs (pairs prefixes (prefix: pairs suffixes (suffix: [ (format prefix suffix) ])));
           sh = spawn "sh" "-c";
+          multi =
+            action-list:
+            sh (
+              lib.strings.concatMapStringsSep " && " (
+                action:
+                lib.strings.concatStrings [
+                  "niri msg action "
+                  action
+                ]
+              ) action-list
+            );
         in
         lib.attrsets.mergeAttrsList [
           {
@@ -81,10 +97,10 @@
             "Mod+Shift+Tab".action = focus-window-up-or-column-left;
           }
           (binds {
-            suffixes."Left" = "column-left";
-            suffixes."Down" = "window-down";
-            suffixes."Up" = "window-up";
-            suffixes."Right" = "column-right";
+            suffixes."H" = "column-left";
+            suffixes."J" = "window-down";
+            suffixes."K" = "window-up";
+            suffixes."L" = "column-right";
             prefixes."Mod" = "focus";
             prefixes."Mod+Shift" = "move";
             prefixes."Mod+Ctrl" = "focus-monitor";
@@ -96,14 +112,14 @@
             suffixes."Home" = "first";
             suffixes."End" = "last";
             prefixes."Mod" = "focus-column";
-            prefixes."Mod+Ctrl" = "move-column-to";
+            prefixes."Mod+Shift" = "move-column-to";
           })
           (binds {
             suffixes."U" = "workspace-down";
             suffixes."I" = "workspace-up";
             prefixes."Mod" = "focus";
-            prefixes."Mod+Ctrl" = "move-window-to";
-            prefixes."Mod+Shift" = "move";
+            prefixes."Mod+Shift" = "move-window-to";
+            prefixes."Mod+Alt" = "move";
           })
           (binds {
             suffixes = builtins.listToAttrs (
@@ -116,28 +132,44 @@
               }) (range 1 9)
             );
             prefixes."Mod" = "focus";
-            prefixes."Mod+Ctrl" = "move-window-to";
+            prefixes."Mod+Shift" = "move-window-to";
           })
           {
             "Mod+Comma".action = consume-window-into-column;
+            "Mod+Shift+Comma".action = multi [
+              "focus-column-left"
+              "consume-window-into-column"
+            ];
             "Mod+Period".action = expel-window-from-column;
+            "Mod+Shift+Period".action = multi [
+              "expel-window-from-column"
+              "focus-column-right"
+              "move-window-left"
+              "move-window-left"
+            ];
 
             "Mod+R".action = switch-preset-column-width;
-            "Mod+F".action = maximize-column;
+            "Mod+F".action = # maximize-column;
+              multi [
+                "expel-window-from-column"
+                "maximize-column"
+              ];
             "Mod+Shift+F".action = fullscreen-window;
             "Mod+C".action = center-column;
 
             "Mod+Minus".action = set-column-width "-10%";
-            "Mod+Plus".action = set-column-width "+10%";
+            "Mod+Equal".action = set-column-width "+10%";
             "Mod+Shift+Minus".action = set-window-height "-10%";
-            "Mod+Shift+Plus".action = set-window-height "+10%";
+            "Mod+Shift+Equal".action = set-window-height "+10%";
 
             "Mod+Shift+E".action = quit;
             "Mod+Shift+P".action = power-off-monitors;
 
             "Mod+Shift+Ctrl+T".action = toggle-debug-tint;
+            "Mod+Shift+Ctrl+T".action = show-hotkey-overlay;
           }
         ];
 
     };
-};
+  };
+}
