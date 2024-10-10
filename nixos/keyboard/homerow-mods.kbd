@@ -110,7 +110,9 @@
   (    m  ) d
   (      i) f
   (    m i) @osh-lm
-  (  r m  ) (fork @osh-ls (caps-word $cpsw-time) (rsft))
+  (  r m  ) (switch 
+              ((and k l)) (caps-word $cpsw-time) fallthrough
+              () @osh-ls break)
   (p r    ) @osh-lc
   (p     i) @osh-la
   (  r   i) @osh-lms
@@ -127,7 +129,9 @@
   (    m  ) k
   (      i) j
   (    m i) @osh-rm
-  (  r m  ) (fork @osh-rs (caps-word $cpsw-time) (lsft))
+  (  r m  ) (switch
+              ((and s d)) (caps-word $cpsw-time) fallthrough
+              () @osh-rs break)
   (p r    ) @osh-rc
   (p     i) @osh-ra
   (  r   i) @osh-rms
