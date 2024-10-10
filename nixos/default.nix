@@ -22,9 +22,15 @@
     tree
     bash
     gparted
+    htop
     man-pages
     man-pages-posix
     cachix
+    onedrive
+
+    libreoffice-qt
+    hunspell
+    hunspellDicts.en_US
   ];
 
   # Use the systemd-boot EFI boot loader.
